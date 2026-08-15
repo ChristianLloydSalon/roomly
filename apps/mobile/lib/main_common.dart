@@ -6,7 +6,7 @@ void runMainApp() {
   runApp(const RoomlyApp());
 }
 
-const   String    verificationMarker   =   'pre-commit-hook-check';
+const String verificationMarker = 'pre-commit-hook-verified';
 
 class RoomlyApp extends StatelessWidget {
   const RoomlyApp({super.key});
