@@ -29,6 +29,20 @@ android {
         versionName = flutter.versionName
     }
 
+    flavorDimensions += "environment"
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationId = "roomly.app.dev"
+            resValue("string", "app_name", "Roomly Dev")
+        }
+        create("prod") {
+            dimension = "environment"
+            applicationId = "roomly.app"
+            resValue("string", "app_name", "Roomly")
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
