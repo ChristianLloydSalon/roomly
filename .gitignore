@@ -1,3 +1,17 @@
-AGENTS.md
-CLAUDE.md
-PRD.md
+# Root-level dependencies (npm workspaces hoist here)
+node_modules/
+
+# Environment variables (all apps)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/

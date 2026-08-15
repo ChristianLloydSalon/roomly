@@ -18,7 +18,7 @@ A cross-platform furniture shopping platform with **AR visualization**, allowing
 roomly/
 ├── apps/
 │   ├── mobile/
-│   ├── api/
+│   ├── backend/
 │   └── admin/
 └── README.md
 ```
