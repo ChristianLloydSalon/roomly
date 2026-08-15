@@ -1,0 +1,8 @@
+# apps/backend and apps/admin each resolve eslint/prettier from their own
+# node_modules (npm cannot hoist eslint to the workspace root here due to a
+# peer-dependency conflict between the two apps' eslint plugin chains), so
+# make both workspaces' node_modules/.bin available on PATH before running
+# lint-staged from the repo root.
+export PATH="$PWD/apps/backend/node_modules/.bin:$PWD/apps/admin/node_modules/.bin:$PATH"
+
+npx lint-staged
