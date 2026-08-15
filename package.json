@@ -1,0 +1,13 @@
+{
+  "name": "roomly",
+  "private": true,
+  "workspaces": [
+    "apps/backend",
+    "apps/admin"
+  ],
+  "scripts": {
+    "lint": "npm run lint --workspace=apps/backend && npm run lint --workspace=apps/admin",
+    "test": "npm test --workspace=apps/backend && npm test --workspace=apps/admin",
+    "build": "npm run build --workspace=apps/backend && npm run build --workspace=apps/admin"
+  }
+}
