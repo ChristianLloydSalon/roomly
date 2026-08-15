@@ -5,7 +5,7 @@
 This repository contains a furniture shopping platform with three applications:
 
 - `apps/mobile`: Flutter consumer application
-- `apps/api`: NestJS REST API
+- `apps/backend`: NestJS REST API
 - `apps/admin`: Next.js administration portal
 
 The platform allows customers to browse furniture, search/filter products, manage wishlists and carts, checkout, view orders, and use AR to visualize supported furniture in their physical environment.
