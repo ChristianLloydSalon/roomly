@@ -37,3 +37,48 @@ roomly/
 ## Architecture
 
 All applications follow **Clean Architecture** with clear separation between presentation, application, domain, and infrastructure layers.
+
+## Getting Started
+
+Node version is pinned via `.nvmrc` — run `nvm use` (or your version manager's equivalent) before installing.
+
+`apps/backend` and `apps/admin` are npm workspaces: `npm install` from the repo root installs both. `apps/mobile` is Flutter and is managed separately via `fvm` — it is **not** part of the npm workspaces.
+
+Copy each app's `.env.example` to a real env file before running it:
+
+* `apps/backend/.env.example` → `apps/backend/.env`
+* `apps/admin/.env.example` → `apps/admin/.env.development` / `.env.production`
+
+### Backend
+
+```bash
+npm run start:dev --workspace=apps/backend
+# or: cd apps/backend && npm run start:dev
+```
+
+Health check: `http://localhost:3000/api/v1/health`
+Swagger docs: `http://localhost:3000/api/docs`
+
+### Admin
+
+```bash
+npm run dev --workspace=apps/admin
+# or: cd apps/admin && npm run dev
+```
+
+### Mobile
+
+Requires `fvm` installed.
+
+```bash
+cd apps/mobile && fvm flutter pub get
+```
+
+`lib/main.dart` does not exist — run a flavor explicitly:
+
+```bash
+fvm flutter run --flavor dev -t lib/main_dev.dart    # dev
+fvm flutter run --flavor prod -t lib/main_prod.dart  # prod
+```
+
+Only Android flavors are configured currently; iOS is deferred.
