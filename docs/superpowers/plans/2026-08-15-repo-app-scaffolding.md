@@ -85,18 +85,11 @@ roomly/
 **Interfaces:**
 - Produces: a clean `main` branch with docs committed and ignore/format/version baselines in place, ready for scaffolding commands in later tasks.
 
-- [ ] **Step 1: Commit the pre-existing pending documentation**
+- [ ] **Step 1: Write the root `.gitignore` first**
 
-These four files already exist in the working tree from before this plan (verify with `git status` — `AGENTS.md`, `CLAUDE.md`, `PRD.md` untracked, `README.md` modified). Commit them unmodified:
+The current `.gitignore` still contains leftover ignore patterns for `AGENTS.md`, `CLAUDE.md`, and `PRD.md` from before those docs existed (check with `cat .gitignore`). It must be rewritten *before* staging those files, otherwise `git add` will refuse them as ignored.
 
-```bash
-git add AGENTS.md CLAUDE.md PRD.md README.md
-git commit -m "docs: add AGENTS.md, CLAUDE.md, PRD.md and fix backend folder name in README"
-```
-
-- [ ] **Step 2: Write the root `.gitignore`**
-
-Each scaffolding tool used later (Nest CLI, `create-next-app`, `flutter create`) generates its own nested `.gitignore` covering its framework's build artifacts, so the root file only needs to cover root-level and cross-cutting concerns:
+Each scaffolding tool used later (Nest CLI, `create-next-app`, `flutter create`) generates its own nested `.gitignore` covering its framework's build artifacts, so the root file only needs to cover root-level and cross-cutting concerns. Replace `.gitignore`'s contents entirely with:
 
 ```gitignore
 # Root-level dependencies (npm workspaces hoist here)
@@ -116,6 +109,15 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 .idea/
+```
+
+- [ ] **Step 2: Commit the pre-existing pending documentation**
+
+`AGENTS.md`, `CLAUDE.md`, `PRD.md`, and `README.md` already exist in the working tree from before this plan (verify with `git status` — `AGENTS.md`, `CLAUDE.md`, `PRD.md` untracked, `README.md` modified, now that Step 1 stopped ignoring the first three). Commit them unmodified, together with the new `.gitignore`:
+
+```bash
+git add AGENTS.md CLAUDE.md PRD.md README.md .gitignore
+git commit -m "docs: add AGENTS.md, CLAUDE.md, PRD.md, fix backend folder name in README, and reset gitignore"
 ```
 
 - [ ] **Step 3: Create `.editorconfig`**
@@ -150,11 +152,11 @@ trim_trailing_whitespace = false
 git status
 ```
 
-Expected: `.gitignore` modified, `.editorconfig` and `.nvmrc` untracked, nothing else.
+Expected: `.editorconfig` and `.nvmrc` untracked, nothing else (the `.gitignore`/docs commit already happened in Step 2).
 
 ```bash
-git add .gitignore .editorconfig .nvmrc
-git commit -m "chore: add root gitignore, editorconfig, and nvmrc"
+git add .editorconfig .nvmrc
+git commit -m "chore: add root editorconfig and nvmrc"
 ```
 
 ---
@@ -715,6 +717,12 @@ fvm global stable
 
 ```bash
 fvm flutter create --org roomly --project-name roomly_mobile --platforms android,ios apps/mobile
+```
+
+If this generated a nested `apps/mobile/.git` directory (some Flutter versions run `git init` as part of `create`), remove it — a nested repo would make git track `apps/mobile` as an empty gitlink instead of its actual files:
+
+```bash
+rm -rf apps/mobile/.git
 ```
 
 - [ ] **Step 3: Pin the project locally to the stable version**
